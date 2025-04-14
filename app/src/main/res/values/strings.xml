@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ibacocktailbook</string>
+    <string name="default_web_client_id">474309274156-qn042fn46340svagtmn707rhtgs5fmi0.apps.googleusercontent.com</string>
+
 </resources>

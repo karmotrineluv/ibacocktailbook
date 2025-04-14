@@ -12,7 +12,20 @@
           "package_name": "com.example.ibacocktailbook"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "474309274156-r910132klkjve9ah3ms69c9v794ebdi1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ibacocktailbook",
+            "certificate_hash": "32f13c962734955856892922d6c213db7a6f23e0"
+          }
+        },
+        {
+          "client_id": "474309274156-qn042fn46340svagtmn707rhtgs5fmi0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDx6DKD7Wmfdb1faIvmHSwY7JdSEk6AWqo"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "474309274156-qn042fn46340svagtmn707rhtgs5fmi0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.google.signin)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,3 +67,5 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
 }
+
+apply(plugin = "com.google.gms.google-services")
