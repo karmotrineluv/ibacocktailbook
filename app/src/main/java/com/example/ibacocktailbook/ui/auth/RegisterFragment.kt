@@ -28,15 +28,38 @@ class RegisterFragment : Fragment() {
             val password = binding.passwordEditText.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Введите email и пароль", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Enter email and password", Toast.LENGTH_SHORT).show()
             } else {
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
-                    } else {
-                        Toast.makeText(context, "Ошибка: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val user = auth.currentUser
+                            user?.sendEmailVerification()
+                                ?.addOnCompleteListener { verifyTask ->
+                                    if (verifyTask.isSuccessful) {
+                                        Toast.makeText(
+                                            context,
+                                            "Verification message was sent to $email. Please verify your account.",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+
+                                        findNavController().navigate(R.id.action_registerFragment_to_emailVerificationFragment)
+                                    } else {
+                                        Toast.makeText(
+                                            context,
+                                            "Couldn't send message: ${verifyTask.exception?.message}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                }
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "Error: ${task.exception?.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                }
             }
         }
 

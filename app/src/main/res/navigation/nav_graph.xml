@@ -39,6 +39,11 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+
+        <action
+            android:id="@+id/action_registerFragment_to_emailVerificationFragment"
+            app:destination="@id/emailVerificationFragment" />
+
     </fragment>
 
     <fragment
@@ -50,5 +55,20 @@
             android:id="@+id/action_resetPasswordFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/emailVerificationFragment"
+        android:name="com.example.ibacocktailbook.ui.auth.VerifyEmailFragment"
+        android:label="Подтверждение почты">
+
+        <action
+            android:id="@+id/action_emailVerificationFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+
+        <action
+            android:id="@+id/action_emailVerificationFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
 
 </navigation>

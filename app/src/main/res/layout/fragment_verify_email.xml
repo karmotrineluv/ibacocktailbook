@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:padding="24dp">
+
+    <ImageView
+        android:id="@+id/loginImage"
+        android:layout_width="359dp"
+        android:layout_height="211dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/login_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/verifyTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verify your email"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/cyberpunkwaifus"
+        app:layout_constraintTop_toBottomOf="@id/loginImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/verificationMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#CCCCCC"
+        android:textSize="18sp"
+        android:fontFamily="@font/cyberpunkwaifus"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/verifyTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+
+    <Button
+        android:id="@+id/resendEmailButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Resend link"
+        android:backgroundTint="#c5003c"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:fontFamily="@font/cyberpunkwaifus"
+        app:layout_constraintTop_toBottomOf="@id/verificationMessage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <Button
+        android:id="@+id/continueButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Continue"
+        android:backgroundTint="#76d86a"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:fontFamily="@font/cyberpunkwaifus"
+        app:layout_constraintTop_toBottomOf="@id/resendEmailButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="0dp" />
+
+    <TextView
+        android:id="@+id/backToLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back to Sign In"
+        android:textColor="#3c82d0"
+        android:fontFamily="@font/cyberpunkwaifus"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/continueButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+    <TextView
+        android:id="@+id/footerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="© 2025 Olzhas Molot. Final project work."
+        android:textColor="#7e7e7e"
+        android:textSize="14sp"
+        android:fontFamily="@font/cyberpunkwaifus"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/continueButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="64dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,14 +27,14 @@ class ResetPasswordFragment : Fragment() {
             val email = binding.emailEditText.text.toString().trim()
 
             if (email.isEmpty()) {
-                Toast.makeText(context, "Введите email", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Enter email", Toast.LENGTH_SHORT).show()
             } else {
                 auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(context, "Ссылка для сброса отправлена", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Password reset link was sent", Toast.LENGTH_SHORT).show()
                         findNavController().navigateUp()
                     } else {
-                        Toast.makeText(context, "Ошибка: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

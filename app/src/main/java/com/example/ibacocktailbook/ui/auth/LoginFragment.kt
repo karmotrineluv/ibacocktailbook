@@ -51,13 +51,13 @@ class LoginFragment : Fragment() {
             val password = binding.passwordEditText.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Введите email и пароль", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Enter email and password", Toast.LENGTH_SHORT).show()
             } else {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     } else {
-                        Toast.makeText(context, "Ошибка: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -79,7 +79,7 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 } else {
-                    Toast.makeText(context, "Ошибка анонимного входа: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Anonymous login error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -96,7 +96,7 @@ class LoginFragment : Fragment() {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                Toast.makeText(context, "Ошибка входа: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Login error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -107,7 +107,7 @@ class LoginFragment : Fragment() {
             if (task.isSuccessful) {
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             } else {
-                Toast.makeText(context, "Ошибка Firebase: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Firebase error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
