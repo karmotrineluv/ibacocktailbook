@@ -3,107 +3,107 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#121212"
+    android:background="#000000"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp">
 
-    <!-- Фоновое изображение -->
     <ImageView
         android:id="@+id/loginImage"
         android:layout_width="359dp"
         android:layout_height="211dp"
-        android:layout_marginTop="16dp"
         android:scaleType="fitCenter"
         android:src="@drawable/login_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp" />
 
-    <!-- Приветственный текст -->
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome!"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/cyberpunkwaifus"
         app:layout_constraintTop_toBottomOf="@id/loginImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="16dp" />
 
-    <!-- Email -->
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:backgroundTint="#c5003c"
-        android:textColorHint="#BBBBBB"
+        android:backgroundTint="#a9023d"
+        android:textColorHint="#7e7e7e"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:fontFamily="@font/cyberpunkwaifus"
         app:layout_constraintTop_toBottomOf="@id/welcomeText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="16dp" />
 
-    <!-- Password -->
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="textPassword"
-        android:backgroundTint="#c5003c"
-        android:textColorHint="#BBBBBB"
+        android:backgroundTint="#a9023d"
+        android:textColorHint="#7e7e7e"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:fontFamily="@font/cyberpunkwaifus"
         app:layout_constraintTop_toBottomOf="@id/emailEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="16dp" />
 
-    <!-- Забыли пароль -->
     <TextView
         android:id="@+id/forgotPasswordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Forgot your password?"
-        android:textColor="#55ead4"
-        android:textSize="14sp"
-        android:layout_marginTop="4dp"
+        android:textColor="#3c82d0"
+        android:fontFamily="@font/cyberpunkwaifus"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/passwordEditText"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
 
-    <!-- Войти -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Sign in"
-        android:backgroundTint="#c5003c"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="#76d86a"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:fontFamily="@font/cyberpunkwaifus"
         app:layout_constraintTop_toBottomOf="@id/forgotPasswordText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="16dp" />
 
-    <!-- Войти с помощью -->
     <TextView
         android:id="@+id/loginWithLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="or sign in with"
-        android:textColor="#55ead4"
-        android:textSize="14sp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/cyberpunkwaifus"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/loginButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="16dp"/>
 
-    <!-- Контейнер для цепочки кнопок (Google + Анонимный вход) -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttonChainContainer"
         android:layout_width="match_parent"
@@ -113,95 +113,97 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp">
 
-        <!-- Google Sign-In -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/customGoogleButton"
+        <LinearLayout
+            android:id="@+id/googleLoginButton"
             android:layout_width="0dp"
-            android:layout_height="51dp"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:layout_marginEnd="8dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/bg_white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/anonymousCardButton"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:cardBackgroundColor="#333333">
+            app:layout_constraintEnd_toStartOf="@id/anonymousLoginButton">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="16dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/google_white"
+                android:contentDescription="Google icon" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/google_logo" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Google"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/cyberpunkwaifus" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/customGoogleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sign in with Google"
-                    android:textSize="14sp"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginStart="12dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Анонимный вход с использованием CardView -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/anonymousCardButton"
+        <LinearLayout
+            android:id="@+id/anonymousLoginButton"
             android:layout_width="0dp"
-            android:layout_height="51dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            app:layout_constraintStart_toEndOf="@id/customGoogleButton"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_white"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:cardBackgroundColor="#333333">
+            app:layout_constraintStart_toEndOf="@id/googleLoginButton"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="16dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/incog"
+                android:contentDescription="Anonymous icon" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/incog" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Anonymous"
-                    android:textSize="14sp"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginStart="12dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anonymous"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/cyberpunkwaifus" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Регистрация -->
     <TextView
         android:id="@+id/registerLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Don't have an account? Sign up"
-        android:textColor="#55ead4"
-        android:textSize="14sp"
-        android:layout_marginTop="12dp"
+        android:textColor="#3c82d0"
+        android:fontFamily="@font/cyberpunkwaifus"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/buttonChainContainer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <TextView
+        android:id="@+id/footerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:fontFamily="@font/cyberpunkwaifus"
+        android:gravity="center"
+        android:text="© 2025 Olzhas Molot. Final project work."
+        android:textColor="#7e7e7e"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/registerLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

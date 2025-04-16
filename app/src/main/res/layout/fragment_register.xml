@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#121212"
+    android:background="#000000"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp">
@@ -27,13 +27,13 @@
         android:layout_height="wrap_content"
         android:text="Create Account"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/cyberpunkwaifus"
         app:layout_constraintTop_toBottomOf="@id/loginImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="16dp" />
 
     <!-- Email -->
     <EditText
@@ -43,12 +43,14 @@
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:backgroundTint="#c5003c"
-        android:textColorHint="#BBBBBB"
+        android:textColorHint="#7e7e7e"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:fontFamily="@font/cyberpunkwaifus"
         app:layout_constraintTop_toBottomOf="@id/registerTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="16dp" />
 
     <!-- Password -->
     <EditText
@@ -58,12 +60,14 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:backgroundTint="#c5003c"
-        android:textColorHint="#BBBBBB"
+        android:textColorHint="#7e7e7e"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:fontFamily="@font/cyberpunkwaifus"
         app:layout_constraintTop_toBottomOf="@id/emailEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="16dp" />
 
     <!-- Confirm Password -->
     <EditText
@@ -73,12 +77,14 @@
         android:hint="Confirm Password"
         android:inputType="textPassword"
         android:backgroundTint="#c5003c"
-        android:textColorHint="#BBBBBB"
+        android:textColorHint="#7e7e7e"
         android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:fontFamily="@font/cyberpunkwaifus"
         app:layout_constraintTop_toBottomOf="@id/passwordEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="16dp" />
 
     <!-- Войти -->
     <Button
@@ -86,26 +92,28 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Sign Up"
-        android:backgroundTint="#c5003c"
-        android:textColor="#FFFFFF"
+        android:backgroundTint="#76d86a"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:fontFamily="@font/cyberpunkwaifus"
         app:layout_constraintTop_toBottomOf="@id/confirmPasswordEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="16dp" />
 
+    <!-- Ссылка на вход -->
     <TextView
         android:id="@+id/backToLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Already have an account? Sign in"
-        android:textColor="#55ead4"
-        android:textSize="14sp"
-        android:layout_marginTop="12dp"
+        android:textColor="#3c82d0"
+        android:fontFamily="@font/cyberpunkwaifus"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/registerButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_centerHorizontal="true"/>
-
-
+        android:layout_centerHorizontal="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

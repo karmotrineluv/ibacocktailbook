@@ -39,7 +39,7 @@ class LoginFragment : Fragment() {
         googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
         // Кнопка Google Sign-In
-        binding.customGoogleButton.setOnClickListener {
+        binding.googleLoginButton.setOnClickListener {
             val signInIntent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
@@ -74,7 +74,7 @@ class LoginFragment : Fragment() {
         }
 
         // Кнопка анонимного входа
-        binding.anonymousCardButton.setOnClickListener {
+        binding.anonymousLoginButton.setOnClickListener {
             auth.signInAnonymously().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
