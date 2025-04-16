@@ -1,6 +1,5 @@
 package com.example.ibacocktailbook.ui.auth
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -33,25 +32,26 @@ class LoginFragment : Fragment() {
 
         // Настройка Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)) // из google-services.json
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
-        // Кнопка входа через Google
-        binding.googleSignInButton.setOnClickListener {
+        // Кнопка Google Sign-In
+        binding.customGoogleButton.setOnClickListener {
             val signInIntent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
 
-        // Кнопка обычного входа
+
+        // Кнопка логина по email
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Пожалуйста, введите email и пароль", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Введите email и пароль", Toast.LENGTH_SHORT).show()
             } else {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -64,19 +64,22 @@ class LoginFragment : Fragment() {
         }
 
         // Кнопка регистрации
-        binding.registerButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString().trim()
-            val password = binding.passwordEditText.text.toString().trim()
+        binding.registerLabel.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
 
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Пожалуйста, введите email и пароль", Toast.LENGTH_SHORT).show()
-            } else {
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                    } else {
-                        Toast.makeText(context, "Ошибка: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                    }
+        // Кнопка "Забыли пароль?"
+        binding.forgotPasswordText.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_resetPasswordFragment)
+        }
+
+        // Кнопка анонимного входа
+        binding.anonymousCardButton.setOnClickListener {
+            auth.signInAnonymously().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                } else {
+                    Toast.makeText(context, "Ошибка анонимного входа: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
