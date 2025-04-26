@@ -1,15 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
-    android:padding="24dp">
+    android:background="@color/black"
+    android:padding="16dp">
 
-    <TextView
-        android:id="@+id/homeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Добро пожаловать в книгу коктейлей!"
-        android:textSize="18sp"
-        android:textColor="#000000" />
-</FrameLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/greetingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:paddingBottom="12dp" />
+
+        <!-- Поисковая строка -->
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search cocktails..."
+            android:fontFamily="@font/cyberpunkwaifus"
+            android:textSize="20sp"
+            android:background="@drawable/search_field"
+            android:drawableStart="@drawable/ic_search"
+            android:drawableTint="@android:color/white"
+            android:padding="12dp"
+            android:textColor="#7e7e7e"
+            android:textColorHint="#7e7e7e" />
+
+
+        <!-- Карточки -->
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <!-- Все коктейли -->
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:padding="16dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_all_drinks" />
+
+                <TextView
+                    android:text="Все коктейли"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <!-- Избранное -->
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:padding="16dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_favorite" />
+
+                <TextView
+                    android:text="Избранное"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <!-- Случайный коктейль -->
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:padding="16dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_random" />
+
+                <TextView
+                    android:text="Случайный коктейль"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Создать рецепт -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_create" />
+
+            <TextView
+                android:text="Создать рецепт"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <!-- Иллюстрация -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/login_image"
+            android:layout_marginTop="24dp" />
+
+        <!-- Рекомендация дня -->
+        <TextView
+            android:text="Коктейль дня: Negroni"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="24dp"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Секция: Твои рецепты -->
+        <TextView
+            android:text="Твои рецепты"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_marginTop="24dp" />
+
+        <!-- Список последних рецептов (предполагается, что будет RecyclerView или другой элемент) -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <!-- Пример элемента рецепта -->
+            <TextView
+                android:text="Коктейль 1"
+                android:textColor="@color/white"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:text="Коктейль 2"
+                android:textColor="@color/white"
+                android:layout_marginTop="8dp" />
+
+            <!-- Добавьте сюда RecyclerView для отображения реальных рецептов -->
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
