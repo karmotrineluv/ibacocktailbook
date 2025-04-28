@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.ibacocktailbook.ui.main.HomeFragment"
+        android:name="com.example.ibacocktailbook.ui.home.HomeFragment"
         android:label="Home" />
 
     <fragment
