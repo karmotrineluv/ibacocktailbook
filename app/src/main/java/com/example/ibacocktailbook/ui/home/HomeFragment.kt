@@ -36,7 +36,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        cocktailAdapter = CocktailAdapter()
+        // Инициализация адаптера с обработкой клика
+        cocktailAdapter = CocktailAdapter { cocktail ->
+            // Обработка клика на кнопку "сохранить"
+            viewModel.toggleFavorite(cocktail)
+        }
+
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = cocktailAdapter
@@ -68,5 +73,6 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
+
 
 

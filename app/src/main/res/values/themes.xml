@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Твоя тема -->
+    <style name="Theme.Ibacocktailbook" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
 
-    <style name="Theme.Ibacocktailbook" parent="@style/Theme.MaterialComponents" />
+    <!-- styles.xml -->
+    <style name="CyberpunkCardShape" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSizeTopRight">24dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
 </resources>

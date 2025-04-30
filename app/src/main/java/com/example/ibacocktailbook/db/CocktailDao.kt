@@ -59,4 +59,8 @@ interface CocktailDao {
     // Удаляем ингредиенты по ID коктейля (для каскадного удаления)
     @Query("DELETE FROM ingredients WHERE cocktailId = :cocktailId")
     suspend fun deleteIngredientsByCocktailId(cocktailId: Int)
+
+    @Update
+    suspend fun updateCocktail(cocktail: CocktailEntity)
+
 }

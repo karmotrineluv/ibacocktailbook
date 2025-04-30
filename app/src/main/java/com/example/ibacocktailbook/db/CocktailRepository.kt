@@ -32,4 +32,9 @@ class CocktailRepository(private val cocktailDao: CocktailDao) {
         cocktailDao.deleteIngredientsByCocktailId(cocktail.id) // Удаляем ингредиенты
         cocktailDao.deleteCocktail(cocktail) // Удаляем сам коктейль
     }
+
+    suspend fun updateCocktail(cocktail: CocktailEntity) {
+        cocktailDao.updateCocktail(cocktail)
+    }
+
 }

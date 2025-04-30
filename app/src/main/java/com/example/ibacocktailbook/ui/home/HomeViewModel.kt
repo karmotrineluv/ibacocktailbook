@@ -1,4 +1,3 @@
-// HomeViewModel.kt
 package com.example.ibacocktailbook.ui.home
 
 import androidx.lifecycle.LiveData
@@ -13,7 +12,7 @@ class HomeViewModel(
     private val repository: CocktailRepository
 ) : ViewModel() {
 
-    // Используем актуальный LiveData из репозитория
+    // Актуальный список всех коктейлей
     val allCocktails: LiveData<List<CocktailWithIngredients>> = repository.allCocktails
 
     private val _randomCocktail = MutableLiveData<CocktailWithIngredients?>()
@@ -22,6 +21,15 @@ class HomeViewModel(
     fun loadRandomCocktail() {
         viewModelScope.launch {
             _randomCocktail.value = repository.getRandomCocktail()
+        }
+    }
+
+    fun toggleFavorite(cocktail: CocktailWithIngredients) {
+        viewModelScope.launch {
+            val updatedCocktail = cocktail.cocktail.copy(
+                isFavorite = !cocktail.cocktail.isFavorite
+            )
+            repository.updateCocktail(updatedCocktail)
         }
     }
 }

@@ -10,7 +10,9 @@ import com.example.ibacocktailbook.R
 import com.example.ibacocktailbook.databinding.ItemCocktailBinding
 import com.example.ibacocktailbook.db.CocktailWithIngredients
 
-class CocktailAdapter : ListAdapter<CocktailWithIngredients, CocktailAdapter.CocktailViewHolder>(CocktailDiffCallback()) {
+class CocktailAdapter(
+    private val onFavoriteClick: (CocktailWithIngredients) -> Unit = {}
+) : ListAdapter<CocktailWithIngredients, CocktailAdapter.CocktailViewHolder>(CocktailDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CocktailViewHolder {
         val binding = ItemCocktailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -29,22 +31,24 @@ class CocktailAdapter : ListAdapter<CocktailWithIngredients, CocktailAdapter.Coc
                 val context = itemView.context
                 val imageName = cocktailWithIngredients.cocktail.imageUrl
 
-                // Используем Glide для загрузки изображения по URL (или из ресурсов)
+                // Загрузка изображения
                 val imageResId = context.resources.getIdentifier(imageName, "drawable", context.packageName)
 
-                if (imageResId != 0) {
-                    Glide.with(context)
-                        .load(imageResId) // Загружаем изображение из ресурсов
-                        .placeholder(R.drawable.placeholder) // Поставим placeholder
-                        .into(cocktailImageView)
-                } else {
-                    Glide.with(context)
-                        .load(R.drawable.placeholder) // В случае отсутствия изображения
-                        .into(cocktailImageView)
-                }
+                Glide.with(context)
+                    .load(if (imageResId != 0) imageResId else R.drawable.placeholder)
+                    .placeholder(R.drawable.placeholder)
+                    .into(cocktailImageView)
 
                 cocktailNameTextView.text = cocktailWithIngredients.cocktail.name
                 cocktailTypeTextView.text = cocktailWithIngredients.cocktail.type
+
+                // Устанавливаем визуальное состояние кнопки
+                saveButton.isSelected = cocktailWithIngredients.cocktail.isFavorite
+
+                // Обработка клика — не меняем состояние здесь!
+                saveButton.setOnClickListener {
+                    onFavoriteClick(cocktailWithIngredients)
+                }
             }
         }
     }
@@ -59,4 +63,3 @@ class CocktailAdapter : ListAdapter<CocktailWithIngredients, CocktailAdapter.Coc
         }
     }
 }
-

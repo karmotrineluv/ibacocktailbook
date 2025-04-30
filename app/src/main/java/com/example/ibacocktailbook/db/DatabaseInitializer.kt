@@ -26,6 +26,7 @@ object DatabaseInitializer {
                             type = "Unforgettables",
                             imageUrl = "alexander",
                             description = "",
+                            isFavorite = false,
                             instructions = "Pour all ingredients into cocktail shaker filled with ice cubes. Shake and strain into a chilled cocktail glass. Sprinkle fresh ground nutmeg on top."
                         ),
                         CocktailEntity(
@@ -33,6 +34,7 @@ object DatabaseInitializer {
                             type = "Unforgettables",
                             imageUrl = "americano",
                             description = "",
+                            isFavorite = false,
                             instructions = "Mix the ingredients directly in an old fashioned glass filled with ice cubes. Add a splash of Soda Water. Stir gently."
                         ),
                         CocktailEntity(
@@ -40,6 +42,7 @@ object DatabaseInitializer {
                             type = "Unforgettables",
                             imageUrl = "angel_face",
                             description = "",
+                            isFavorite = false,
                             instructions = "Pour all ingredients into cocktail shaker filled with ice cubes. Shake and strain into a chilled cocktail glass."
                         ),
 
@@ -48,6 +51,7 @@ object DatabaseInitializer {
                             type = "Unforgettables",
                             imageUrl = "aviation",
                             description = "",
+                            isFavorite = false,
                             instructions = "Add all ingredients into a cocktail shaker. Shake with cracked ice and strain into a chilled cocktail glass. Garnish with Maraschino Cherry."
                         ),
 
@@ -56,6 +60,7 @@ object DatabaseInitializer {
                             type = "New Era",
                             imageUrl = "bees_knees",
                             description = "",
+                            isFavorite = false,
                             instructions = "Stir honey with lemon and orange juices until it dissolves, add gin and shake with ice. Strain into a chilled cocktail glass."
                         ),
 
@@ -64,6 +69,7 @@ object DatabaseInitializer {
                             type = "Contemporary Classics",
                             imageUrl = "bellini",
                             description = "",
+                            isFavorite = false,
                             instructions = "Pour peach puree into the mixing glass with ice, add the Prosecco wine. Stir gently and pour in a chilled flute glass."
                         ),
 
@@ -72,6 +78,7 @@ object DatabaseInitializer {
                             type = "Unforgettables",
                             imageUrl = "between_the_sheets",
                             description = "",
+                            isFavorite = false,
                             instructions = "Add all ingredients into a cocktail shaker. Shake with ice and strain into a chilled cocktail glass."
                         ),
 
@@ -80,6 +87,7 @@ object DatabaseInitializer {
                             type = "Contemporary Classics",
                             imageUrl = "black_russian",
                             description = "",
+                            isFavorite = false,
                             instructions = "Pour the ingredients into the old fashioned glass filled with ice cubes. Stir gently. strain ingredients into old fashioned glass filled with ice."
                         ),
 
@@ -88,6 +96,7 @@ object DatabaseInitializer {
                             type = "Contemporary Classics",
                             imageUrl = "bloody_mary",
                             description = "",
+                            isFavorite = false,
                             instructions = "Stir gently all the ingredients in a mixing glass with ice, pour into rocks glass. Garnish with celery and lemon wedge"
                         ),
 
@@ -96,6 +105,7 @@ object DatabaseInitializer {
                             type = "Unforgettables",
                             imageUrl = "boulevardier",
                             description = "",
+                            isFavorite = false,
                             instructions = "Pour all ingredients into mixing glass with ice cubes. Stir well. Strain into chilled cocktail glass. Garnish with a orange zest, optionally a lemon zest."
                         ),
 
@@ -104,6 +114,7 @@ object DatabaseInitializer {
                             type = "New Era",
                             imageUrl = "bramble",
                             description = "",
+                            isFavorite = false,
                             instructions = "Pour all ingredients into cocktail shaker except the Crème de Mûre, shake well with ice, strain into chilled old fashioned glass filled with crushed ice, then pour the blackberry liqueur (Crème de Mûre) over the top of the drink, in a circular motion. Garnish optionally with a lemon slice and blackberries."
                         ),
 
@@ -112,6 +123,7 @@ object DatabaseInitializer {
                             type = "Unforgettables",
                             imageUrl = "brandy_crusta",
                             description = "",
+                            isFavorite = false,
                             instructions = "Mix together all ingredients with ice cubes in a mixing glass and strain into a prepared slim cocktail glass. Rub a slice of orange (or lemon) around the rim of the glass and dip it in pulverized white sugar, so that the sugar will adhere to the edge of the glass. Carefully curling place the orange/lemon peel around the inside of the glass."
                         ),
 
@@ -120,6 +132,7 @@ object DatabaseInitializer {
                             type = "Contemporary Classics",
                             imageUrl = "caipirinha",
                             description = "",
+                            isFavorite = false,
                             instructions = "Place lime and sugar into a double old fashioned glass and muddle gently. Fill the glass with cracked ice and add Cachaça. Stir gently to involve ingredients."
                         ),
 
@@ -128,6 +141,7 @@ object DatabaseInitializer {
                             type = "New Era",
                             imageUrl = "canchanchara",
                             description = "",
+                            isFavorite = false,
                             instructions = "Mix honey with water and lime juice and spread the mixture on the bottom and sides of the glass.  Add cracked ice, and then the rum. End by energetically stirring from bottom to top. Garnish with a lime wedge."
                         ),
 
@@ -136,6 +150,7 @@ object DatabaseInitializer {
                             type = "Contemporary Classics",
                             imageUrl = "cardinale",
                             description = "",
+                            isFavorite = false,
                             instructions = "Pour all ingredients into mixing glass with ice cubes. Stir well. Strain into chilled cocktail glass. Garnish with a lemon zest."
                         ),
 
@@ -144,6 +159,7 @@ object DatabaseInitializer {
                             type = "Unforgettables",
                             imageUrl = "casino",
                             description = "",
+                            isFavorite = false,
                             instructions = "Pour all ingredients into cocktails shaker, shake well with ice, strain into chilled rocks glass with ice. Garnish with a lemon zest and a maraschino cherry."
                         ),
 
@@ -152,6 +168,7 @@ object DatabaseInitializer {
                             type = "Contemporary Classics",
                             imageUrl = "champagne_cocktail",
                             description = "",
+                            isFavorite = false,
                             instructions = "Place the sugar cube with 2 dashes of bitters in a large Champagne glass, add the cognac. Pour gently chilled Champagne. Garnish with orange zest and maraschino cherry."
                         ),
 
@@ -160,6 +177,7 @@ object DatabaseInitializer {
                             type = "New Era",
                             imageUrl = "chartreuse_swizzle",
                             description = "",
+                            isFavorite = false,
                             instructions = "Pour all ingredients into a tall glass, add pebble ice. With the help of a swizzle stick (or cocktail spoon) mix vigorously, complete by filling the glass with more pebble ice. Garnish with mint leaves and grated nutmeg."
                         ),
 
@@ -168,14 +186,16 @@ object DatabaseInitializer {
                             type = "Unforgettables",
                             imageUrl = "clover_club",
                             description = "",
+                            isFavorite = false,
                             instructions = "Pour all ingredients into cocktails shaker, shake well with ice, strain into chilled cocktail glass. Garnish with fresh raspberries."
                         ),
 
                         CocktailEntity(
                             name = "Corpse Reviver #2",
                             type = "Contemporary Classics",
-                            imageUrl = "corpse_reviver",
+                            imageUrl = "corpse_reviver2",
                             description = "",
+                            isFavorite = false,
                             instructions = "Pour all ingredients into shaker with ice. Shake well and strain in chilled cocktail glass."
                         ),
 

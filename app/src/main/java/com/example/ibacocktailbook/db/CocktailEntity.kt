@@ -9,5 +9,6 @@ data class CocktailEntity(
     val imageUrl: String,
     val description: String,
     val instructions: String,
+    var isFavorite: Boolean = false,
     val type: String // Unforgettables, Contemporary, New Era, Custom
 )
