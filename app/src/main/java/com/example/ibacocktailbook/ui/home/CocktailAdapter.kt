@@ -29,18 +29,18 @@ class CocktailAdapter : ListAdapter<CocktailWithIngredients, CocktailAdapter.Coc
                 val context = itemView.context
                 val imageName = cocktailWithIngredients.cocktail.imageUrl
 
-                val imageResId = context.resources.getIdentifier(
-                    imageName,
-                    "drawable",
-                    context.packageName
-                )
+                // Используем Glide для загрузки изображения по URL (или из ресурсов)
+                val imageResId = context.resources.getIdentifier(imageName, "drawable", context.packageName)
 
                 if (imageResId != 0) {
                     Glide.with(context)
-                        .load(imageResId)
+                        .load(imageResId) // Загружаем изображение из ресурсов
+                        .placeholder(R.drawable.placeholder) // Поставим placeholder
                         .into(cocktailImageView)
                 } else {
-                    cocktailImageView.setImageResource(R.drawable.placeholder)
+                    Glide.with(context)
+                        .load(R.drawable.placeholder) // В случае отсутствия изображения
+                        .into(cocktailImageView)
                 }
 
                 cocktailNameTextView.text = cocktailWithIngredients.cocktail.name
@@ -59,3 +59,4 @@ class CocktailAdapter : ListAdapter<CocktailWithIngredients, CocktailAdapter.Coc
         }
     }
 }
+

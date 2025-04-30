@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@android:color/black"
     android:padding="16dp">
 
     <!-- Приветствие -->
@@ -12,70 +13,85 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Good evening, Olzhas!"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:paddingBottom="12dp"
-        android:fontFamily="@font/cyberpunkwaifus"/>
+        android:textColor="#00FFFF"
+        android:textSize="24sp"
+        android:fontFamily="@font/cyberpunkwaifus"
+        android:textAlignment="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Поисковая строка -->
     <EditText
         android:id="@+id/searchEditText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Search cocktails..."
-        android:fontFamily="@font/cyberpunkwaifus"
-        android:textSize="20sp"
         android:background="@drawable/search_field"
         android:drawableStart="@drawable/ic_search"
         android:drawableTint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:textColorHint="#888888"
         android:padding="12dp"
-        android:textColor="#7e7e7e"
-        android:textColorHint="#7e7e7e"
-        android:layout_marginBottom="24dp"/>
+        android:fontFamily="@font/cyberpunkwaifus"
+        android:textSize="18sp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/greetingText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Карточка рандомного коктейля -->
     <LinearLayout
         android:id="@+id/randomCocktailCard"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/card_bg"
-        android:padding="16dp"
+        android:padding="12dp"
         android:gravity="center_vertical"
-        android:layout_marginBottom="24dp">
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/searchEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_random"
-            android:layout_marginEnd="12dp"/>
+            android:layout_marginEnd="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Random Cocktail"
-            android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
             android:fontFamily="@font/cyberpunkwaifus"/>
     </LinearLayout>
 
     <!-- Заголовок списка -->
     <TextView
+        android:id="@+id/allCocktailsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="All Cocktails"
-        android:textSize="18sp"
-        android:textColor="@color/white"
+        android:textColor="#00FFFF"
+        android:textSize="20sp"
         android:fontFamily="@font/cyberpunkwaifus"
-        android:paddingBottom="12dp"/>
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/randomCocktailCard"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- RecyclerView для коктейлей -->
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:clipToPadding="false"
-        android:paddingBottom="16dp" />
-
-</LinearLayout>
+        android:paddingBottom="12dp"
+        app:layout_constraintTop_toBottomOf="@id/allCocktailsLabel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
