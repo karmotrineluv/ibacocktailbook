@@ -1,5 +1,6 @@
 package com.example.ibacocktailbook.db
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 
 class CocktailRepository(private val cocktailDao: CocktailDao) {
@@ -9,6 +10,7 @@ class CocktailRepository(private val cocktailDao: CocktailDao) {
 
     // Вставка коктейля и ингредиентов
     suspend fun insertCocktail(cocktail: CocktailEntity, ingredients: List<IngredientEntity>) {
+        Log.d("CocktailRepository", "Inserting cocktail: ${cocktail.name}")
         cocktailDao.insertCocktail(cocktail, ingredients)
     }
 

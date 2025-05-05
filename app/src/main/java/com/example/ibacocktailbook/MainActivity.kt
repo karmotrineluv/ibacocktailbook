@@ -25,7 +25,9 @@ class MainActivity : AppCompatActivity() {
         // Скрываем/показываем BottomNavigationView в зависимости от текущего фрагмента
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
+                R.id.cocktailDetailFragment,
                 R.id.loginFragment,
+                R.id.homeFragment,
                 R.id.registerFragment,
                 R.id.resetPasswordFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE // Скрыть навигацию

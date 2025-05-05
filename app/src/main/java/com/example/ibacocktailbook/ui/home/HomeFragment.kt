@@ -3,6 +3,7 @@ package com.example.ibacocktailbook.ui.home
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +56,7 @@ class HomeFragment : Fragment() {
 
         // Наблюдение за всеми коктейлями
         viewModel.allCocktails.observe(viewLifecycleOwner) { cocktails ->
+            Log.d("HomeFragment", "Received ${cocktails.size} cocktails from LiveData")
             cocktailAdapter.submitList(cocktails)
         }
 

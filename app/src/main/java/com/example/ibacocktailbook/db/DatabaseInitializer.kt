@@ -1,5 +1,6 @@
 package com.example.ibacocktailbook.db
 
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -8,18 +9,15 @@ import kotlinx.coroutines.withContext
 object DatabaseInitializer {
 
     suspend fun initialize(database: CocktailDatabase) {
+        Log.d("DatabaseInitializer", "Adding new cocktails...")
         val dao = database.cocktailDao()
 
-        // Здесь мы не можем напрямую использовать getAllCocktails(), потому что это LiveData.
-        // Вместо этого, мы можем использовать getAllCocktailsList(), если хотим получить данные синхронно.
-
-        // Переход от LiveData к синхронным данным через сессию корутин
         withContext(Dispatchers.IO) {
-            val cocktails = dao.getAllCocktailsList() // Возвращает List<CocktailEntity>
+            val existingNames = dao.getAllCocktailsList()
+                .map { it.name }
+                .toSet()
 
-            if (cocktails.isEmpty()) {
-                withContext(Dispatchers.IO) {
-                    val cocktailsToInsert = listOf(
+            val cocktailsToInsert = listOf(
 
                         CocktailEntity(
                             name = "Alexander",
@@ -193,18 +191,202 @@ object DatabaseInitializer {
                         CocktailEntity(
                             name = "Corpse Reviver #2",
                             type = "Contemporary Classics",
-                            imageUrl = "corpse_reviver2",
+                            imageUrl = "corpse_reviver",
                             description = "",
                             isFavorite = false,
                             instructions = "Pour all ingredients into shaker with ice. Shake well and strain in chilled cocktail glass."
                         ),
 
-                        )
+                        CocktailEntity(
+                            name = "Cosmopolitan",
+                            type = "Contemporary Classics",
+                            imageUrl = "cosmopolitan",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Add all ingredients into cocktail shaker filled with ice. Shake well and strain into large cocktail glass. Garnish with lemon twist."
+                        ),
 
-                    cocktailsToInsert.forEach { cocktail ->
-                        val cocktailId = dao.insertCocktail(cocktail).toInt()
+                        CocktailEntity(
+                            name = "Cuba Libre",
+                            type = "Contemporary Classics",
+                            imageUrl = "cuba_libre",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Build all ingredients in a highball glass filled with ice. Garnish with lime wedge."
+                        ),
 
-                        val ingredients = when (cocktail.name) {
+                        CocktailEntity(
+                            name = "Daiquiri",
+                            type = "The unforgettables",
+                            imageUrl = "daiquiri",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "In a cocktail shaker add all ingredients. Stir well to dissolve the sugar. Add ice and shake. Strain into chilled cocktail glass."
+                        ),
+
+                        CocktailEntity(
+                            name = "Dark ‘N’ Stormy",
+                            type = "New Era",
+                            imageUrl = "dark_n_stormy",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "In a highball glass filled with ice pour the ginger beer and top floating with the Rum. Garnish with a lime wedge or slice."
+                        ),
+
+                        CocktailEntity(
+                            name = "Don’s Special Daiquiri",
+                            type = "New Era",
+                            imageUrl = "special_daiquiri",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Blend for a few seconds in a milkshake mixer with  crushed ice and pour into a footed copo glass. Fill the glass with more crushed ice. Garnish with 1/2 passion fruit"
+                        ),
+
+                        CocktailEntity(
+                            name = "Dry Martini",
+                            type = "The unforgettables",
+                            imageUrl = "dry_martini",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Pour all ingredients into mixing glass with ice cubes. Stir well. Strain into chilled martini cocktail glass. Squeeze oil from lemon peel onto the drink, or garnish with a green olives if requested."
+                        ),
+
+                        CocktailEntity(
+                            name = "Espresso Martini",
+                            type = "New Era",
+                            imageUrl = "espresso_martini",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Pour all ingredients into cocktail shaker, shake well with ice, strain into chilled cocktail glass. Garnish with 3 coffee beans"
+                        ),
+
+                        CocktailEntity(
+                            name = "Fernandito",
+                            type = "New Era",
+                            imageUrl = "fernandito",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Pour the Fernet Branca into a double old fashioned glass with ice, fill the glass up with Cola. Gently stir."
+                        ),
+
+                        CocktailEntity(
+                            name = "French 75",
+                            type = "Contemporary Classics",
+                            imageUrl = "french75",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Pour all the ingredients, except Champagne, into a shaker. Shake well and strain into a Champagne flute. Top up with Champagne. Stir gently."
+                        ),
+
+                        CocktailEntity(
+                            name = "French Connection",
+                            type = "Contemporary Classics",
+                            imageUrl = "french_connection",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Pour all ingredients directly into old fashioned glass filled with ice cubes. Stir gently."
+                        ),
+
+                        CocktailEntity(
+                            name = "French Martini",
+                            type = "New Era",
+                            imageUrl = "french_martini",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Pour all ingredients into cocktail shaker, shake well with ice, strain into chilled cocktail glass. Squeeze oil from lemon peel onto the drink."
+                        ),
+
+                        CocktailEntity(
+                            name = "Garibaldi",
+                            type = "Contemporary Classics",
+                            imageUrl = "garibaldi",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Build all ingredients in a highball glass filled with ice. Garnish with an orange wedge."
+                        ),
+
+                        CocktailEntity(
+                            name = "Gin Basil Smash",
+                            type = "New Era",
+                            imageUrl = "gin_basil_smash",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Add all ingredients into shaker with ice. Shake vigorously and pour into chilled cocktail glass."
+                        ),
+
+                        CocktailEntity(
+                            name = "Gin Fizz",
+                            type = "The unforgettables",
+                            imageUrl = "gin_fizz",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Shake all ingredients with ice except soda water. Pour into thin tall Tumbler glass , top with a splash soda water. Garnish with lemon slice, optional lemon zest."
+                        ),
+
+                        CocktailEntity(
+                            name = "Grand Margarita",
+                            type = "New Era",
+                            imageUrl = "grand_margarita",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Rim the rock glass with good quality sea salt. Pour the ingredients into the  shaker. Add ice to both glass and shaker. Shake hard for 10 seconds. Strain the drink into the glass."
+                        ),
+
+                        CocktailEntity(
+                            name = "Grasshopper",
+                            type = "Contemporary Classics",
+                            imageUrl = "grasshopper",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Pour all ingredients into shaker filled with ice. Shake briskly for few seconds. Strain into chilled cocktail glass. Optinally garnish with mint leaves"
+                        ),
+
+                        CocktailEntity(
+                            name = "Hanky Panky",
+                            type = "The unforgettables",
+                            imageUrl = "hanky_panky",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Pour all ingredients into mixing glass with ice cubes. Stir well. Strain into chilled cocktail glass. Garnish with orange zest."
+                        ),
+
+                        CocktailEntity(
+                            name = "Hemingway Special",
+                            type = "Contemporary Classics",
+                            imageUrl = "hemingway_special",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Pour all ingredients into a shaker with ice. Shake well and strain into a large cocktail glass."
+                        ),
+
+                        CocktailEntity(
+                            name = "Horse’s Neck",
+                            type = "Contemporary Classics",
+                            imageUrl = "horses_neck",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "Pour Cognac and ginger ale directly into highball glass with ice cubes. Stir gently. If preferred, add dashes of Angostura Bitter. Garnish with rind of one lemon spiral."
+                        ),
+
+                        CocktailEntity(
+                            name = "IBA Tiki",
+                            type = "New Era",
+                            imageUrl = "tiki",
+                            description = "",
+                            isFavorite = false,
+                            instructions = "In a cocktail shaker muddle a thin slice of Gengibre, Pour all other ingredients. Shake vigorously with ice. Strain into a chilled Tiki glass filled with pebbled ice. Garnish with citruses and dehydrated pineapple slice."
+                        ),
+                )
+            val missing = cocktailsToInsert.filter { it.name !in existingNames }
+            Log.d("DatabaseInitializer", "Need to insert ${missing.size} new cocktails")
+
+            missing.forEach { cocktail ->
+                // Вставляем коктейль и получаем его сгенерированный ID
+                val cocktailId = dao.insertCocktail(cocktail).toInt()
+                Log.d("DatabaseInitializer", "Inserted cocktail: ${cocktail.name} (ID = $cocktailId)")
+
+                // Готовим список ингредиентов, устанавливая правильный cocktailId
+                val ingredients = when (cocktail.name) {
                             "Alexander" -> listOf(
                                 IngredientEntity(
                                     cocktailId = cocktailId,
@@ -640,6 +822,390 @@ object DatabaseInitializer {
                                 ),
                             )
 
+                            "Cosmopolitan" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Vodka Citron",
+                                    amount = "40 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Cointreau",
+                                    amount = "15 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fresh Lime Juice",
+                                    amount = "15 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Cranberry Juice",
+                                    amount = "30 ml"
+                                ),
+                            )
+
+                            "Cuba Libre" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "White Rum",
+                                    amount = "50 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Cola",
+                                    amount = "120 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fresh Lime Juice",
+                                    amount = "10 ml"
+                                ),
+                            )
+
+                            "Daiquiri" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "White Rum",
+                                    amount = "60 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fresh Lime Juice",
+                                    amount = "20 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Superfine Sugar",
+                                    amount = "2 Bar Spoons"
+                                ),
+                            )
+
+                            "Dark ‘N’ Stormy" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Goslings Rum",
+                                    amount = "60 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Ginger Beer",
+                                    amount = "100 ml"
+                                ),
+                            )
+
+                            "Don’s Special Daiquiri" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Gold Jamaican Rum",
+                                    amount = "30 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Cuban Rum",
+                                    amount = "15 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Passion Fruit Syrup",
+                                    amount = "15 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fresh lime juice",
+                                    amount = "15 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Honey Syrup",
+                                    amount = "15 ml"
+                                ),
+                            )
+
+                            "Dry Martini" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Gin",
+                                    amount = "60 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Dry Vermouth",
+                                    amount = "10 ml"
+                                ),
+                            )
+                            "Espresso Martini" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Vodka",
+                                    amount = "50 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Kahlúa",
+                                    amount = "30 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Sugar Syrup",
+                                    amount = "10 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Strong Espresso",
+                                    amount = "1"
+                                ),
+                            )
+                            "Fernandito" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fernet Branca",
+                                    amount = "50 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Cola",
+                                    amount = "fill up"
+                                ),
+                            )
+
+                            "French 75" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Gin",
+                                    amount = "30 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fresh Lemon Juice",
+                                    amount = "15 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Sugar Syrup",
+                                    amount = "15 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Champagne",
+                                    amount = "60 ml"
+                                ),
+                            )
+
+                            "French Connection" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Cognac",
+                                    amount = "35 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Amaretto",
+                                    amount = "35 ml"
+                                ),
+                            )
+
+                            "Garibaldi" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Bitter Campari",
+                                    amount = "45 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Freshly Squeezed Orange Juice",
+                                    amount = "120 ml"
+                                ),
+                            )
+
+                            "Gin Basil Smash" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Gin",
+                                    amount = "60 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Freshly Squeezed Lemon Juice",
+                                    amount = "22,5 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Sugar Syrup",
+                                    amount = "22,5 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Basil leaves",
+                                    amount = "10pcs ml"
+                                ),
+                            )
+                            "Gin Fizz" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Gin",
+                                    amount = "45 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fresh Lemon Juice",
+                                    amount = "30 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Simple Syrup",
+                                    amount = "10 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Soda Water",
+                                    amount = "splash"
+                                ),
+                            )
+
+                            "Grand Margarita" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Tequila",
+                                    amount = "45 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Grand Marnier",
+                                    amount = "30 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fresh Lime Juice",
+                                    amount = "15 ml"
+                                ),
+                            )
+
+                            "Grasshopper" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Crème de Cacao",
+                                    amount = "20 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Crème de Menthe",
+                                    amount = "20 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fresh Cream",
+                                    amount = "25 ml"
+                                ),
+                            )
+
+                            "Hanky Panky" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "London Dry Gin",
+                                    amount = "45 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Sweet Red Vermouth",
+                                    amount = "45 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fernet",
+                                    amount = "7,5 ml"
+                                ),
+                            )
+
+                            "Hemingway Special" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Rum",
+                                    amount = "60 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Grapefruit Juice",
+                                    amount = "40 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Maraschino Luxardo",
+                                    amount = "15 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fresh Lime Juice",
+                                    amount = "15 ml"
+                                ),
+                            )
+
+                            "Horse’s Neck" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Cognac",
+                                    amount = "40 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Ginger Ale",
+                                    amount = "120 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Angostura Bitters",
+                                    amount = "Dash"
+                                ),
+                            )
+
+                            "IBA Tiki" -> listOf(
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Ron Profundo Havana Club",
+                                    amount = "30 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Ron Smoky Havana Club",
+                                    amount = "30 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Amaretto",
+                                    amount = "15 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Frangelico",
+                                    amount = "5 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Maraschino Luxardo",
+                                    amount = "5 drops"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Passion Fruit Puree",
+                                    amount = "30 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fresh Pineapple Juice",
+                                    amount = "90 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Fresh Lime Juice",
+                                    amount = "30 ml"
+                                ),
+                                IngredientEntity(
+                                    cocktailId = cocktailId,
+                                    name = "Gengibre Slice",
+                                    amount = "1 pc"
+                                ),
+                            )
+
 
                             else -> emptyList()
                         }
@@ -651,5 +1217,3 @@ object DatabaseInitializer {
                 }
             }
         }
-    }
-}

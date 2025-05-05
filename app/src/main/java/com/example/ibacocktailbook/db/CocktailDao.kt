@@ -1,5 +1,6 @@
 package com.example.ibacocktailbook.db
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
@@ -11,16 +12,20 @@ interface CocktailDao {
     @Query("SELECT * FROM cocktails")
     fun getAllCocktails(): LiveData<List<CocktailWithIngredients>>
 
+
     // Синхронный метод для получения всех коктейлей
     @Transaction
     @Query("SELECT * FROM cocktails")
-    suspend fun getAllCocktailsList(): List<CocktailEntity>  // Теперь возвращает List<CocktailEntity>
+    suspend fun getAllCocktailsList(): List<CocktailEntity>
+    // Теперь возвращает List<CocktailEntity>
 
     // Вставка коктейля и ингредиентов
     @Transaction
     suspend fun insertCocktail(cocktail: CocktailEntity, ingredients: List<IngredientEntity>) {
         val cocktailId = insertCocktail(cocktail) // Вставляем коктейль и получаем его ID
+        Log.d("CocktailDao", "Inserted cocktail with ID: $cocktailId")
         ingredients.forEach { ingredient ->
+            Log.d("CocktailDao", "Inserting ingredient: ${ingredient.name} for cocktail ${cocktail.name}")
             insertIngredient(ingredient.copy(cocktailId = cocktailId.toInt())) // Вставляем ингредиенты с привязкой к коктейлю
         }
     }
