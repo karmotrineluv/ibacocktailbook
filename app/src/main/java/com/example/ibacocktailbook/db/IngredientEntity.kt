@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "ingredients")
 data class IngredientEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val cocktailId: Int, // внешний ключ на CocktailEntity
+    val cocktailId: Int,
     val name: String,
-    val amount: String // например "45 ml", "1 dash"
+    val amount: String
 )

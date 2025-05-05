@@ -1,0 +1,138 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <!-- переменные можно добавить здесь -->
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:padding="16dp">
+
+        <!-- Кнопка Назад -->
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_back_arrow"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Назад"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Картинка коктейля с рамкой -->
+        <FrameLayout
+            android:id="@+id/imageContainer"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            app:layout_constraintTop_toBottomOf="@id/backButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:strokeColor="@android:color/white"
+                app:strokeWidth="2dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@android:color/black"
+                app:shapeAppearanceOverlay="@style/CyberpunkCardShape">
+
+                <ImageView
+                    android:id="@+id/cocktailImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Изображение коктейля" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Треугольная кнопка Сохранить -->
+            <ImageButton
+                android:id="@+id/saveButton"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="4dp"
+                android:background="@drawable/triangle_selector1"
+                android:contentDescription="Сохранить"
+                android:scaleType="fitXY"
+                android:padding="0dp" />
+
+
+        </FrameLayout>
+
+        <!-- Scrollable карточка -->
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintTop_toBottomOf="@id/imageContainer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#111111"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/cocktailNameTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cocktail Name"
+                        android:textColor="#00FFFF"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/cyberpunkwaifus" />
+
+                    <TextView
+                        android:id="@+id/cocktailTypeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cocktail Type"
+                        android:textColor="#FF00CC"
+                        android:textSize="20sp"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/cyberpunkwaifus" />
+
+                    <TextView
+                        android:id="@+id/ingredientsTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ingredients"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/cyberpunkwaifus" />
+
+                    <TextView
+                        android:id="@+id/instructionsTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Instructions"
+                        android:textColor="#AAAAAA"
+                        android:textSize="18sp"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/cyberpunkwaifus" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

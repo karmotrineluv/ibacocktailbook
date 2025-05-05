@@ -1,9 +1,10 @@
 plugins {
-    id("com.google.gms.google-services")
-    id("org.jetbrains.kotlin.kapt")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services")
+    id("org.jetbrains.kotlin.kapt")
+    id ("androidx.navigation.safeargs")
 }
 
 android {
@@ -39,6 +40,7 @@ android {
     buildFeatures {
         compose = true
         viewBinding = true
+        dataBinding = true
 
     }
 }
@@ -70,6 +72,8 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation ("com.google.android.material:material:1.9.0")
+    implementation ("androidx.databinding:databinding-runtime:4.2.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.0.4")
 
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")

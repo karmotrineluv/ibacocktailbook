@@ -27,6 +27,10 @@
         android:name="com.example.ibacocktailbook.ui.home.HomeFragment"
         android:label="Home" />
 
+    <action
+        android:id="@+id/action_homeFragment_to_cocktailDetailFragment"
+        app:destination="@id/cocktailDetailFragment" />
+
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.ibacocktailbook.ui.auth.RegisterFragment"
@@ -69,6 +73,16 @@
             android:id="@+id/action_emailVerificationFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/cocktailDetailFragment"
+        android:name="com.example.ibacocktailbook.ui.home.CocktailDetailFragment"
+        android:label="Cocktail Detail">
+        <argument
+            android:name="cocktailId"
+            app:argType="integer" />
+    </fragment>
+
 
 
 </navigation>

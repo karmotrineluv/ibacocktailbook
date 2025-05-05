@@ -18,6 +18,10 @@ class HomeViewModel(
     private val _randomCocktail = MutableLiveData<CocktailWithIngredients?>()
     val randomCocktail: LiveData<CocktailWithIngredients?> = _randomCocktail
 
+    private val _cocktailById = MutableLiveData<CocktailWithIngredients?>()
+    val cocktailById: LiveData<CocktailWithIngredients?> = _cocktailById
+
+
     fun loadRandomCocktail() {
         viewModelScope.launch {
             _randomCocktail.value = repository.getRandomCocktail()
@@ -30,6 +34,13 @@ class HomeViewModel(
                 isFavorite = !cocktail.cocktail.isFavorite
             )
             repository.updateCocktail(updatedCocktail)
+        }
+    }
+
+    fun loadCocktailById(id: Int) {
+        viewModelScope.launch {
+            val cocktail = repository.getCocktailById(id)
+            _cocktailById.postValue(cocktail)
         }
     }
 }

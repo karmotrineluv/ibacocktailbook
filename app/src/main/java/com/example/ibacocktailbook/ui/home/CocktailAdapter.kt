@@ -11,7 +11,8 @@ import com.example.ibacocktailbook.databinding.ItemCocktailBinding
 import com.example.ibacocktailbook.db.CocktailWithIngredients
 
 class CocktailAdapter(
-    private val onFavoriteClick: (CocktailWithIngredients) -> Unit = {}
+    private val onFavoriteClick: (CocktailWithIngredients) -> Unit = {},
+    private val onItemClick: (CocktailWithIngredients) -> Unit = {}
 ) : ListAdapter<CocktailWithIngredients, CocktailAdapter.CocktailViewHolder>(CocktailDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CocktailViewHolder {
@@ -45,9 +46,13 @@ class CocktailAdapter(
                 // Устанавливаем визуальное состояние кнопки
                 saveButton.isSelected = cocktailWithIngredients.cocktail.isFavorite
 
-                // Обработка клика — не меняем состояние здесь!
                 saveButton.setOnClickListener {
                     onFavoriteClick(cocktailWithIngredients)
+                }
+
+                // Обработка нажатия на саму карточку
+                root.setOnClickListener {
+                    onItemClick(cocktailWithIngredients)
                 }
             }
         }

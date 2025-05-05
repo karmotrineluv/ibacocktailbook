@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ibacocktailbook.App
 import com.example.ibacocktailbook.databinding.FragmentHomeBinding
@@ -36,23 +37,29 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Инициализация адаптера с обработкой клика
-        cocktailAdapter = CocktailAdapter { cocktail ->
-            // Обработка клика на кнопку "сохранить"
-            viewModel.toggleFavorite(cocktail)
-        }
+        // Инициализация адаптера с обработкой кликов
+        cocktailAdapter = CocktailAdapter(
+            onFavoriteClick = { cocktail ->
+                viewModel.toggleFavorite(cocktail)
+            },
+            onItemClick = { cocktail ->
+                val action = HomeFragmentDirections
+                    .actionHomeFragmentToCocktailDetailFragment(cocktail.cocktail.id)
+                findNavController().navigate(action)
+            }
+        )
 
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = cocktailAdapter
         }
 
-        // Подписываемся на LiveData всех коктейлей
+        // Наблюдение за всеми коктейлями
         viewModel.allCocktails.observe(viewLifecycleOwner) { cocktails ->
             cocktailAdapter.submitList(cocktails)
         }
 
-        // Подписываемся на LiveData случайного коктейля
+        // Случайный коктейль
         viewModel.randomCocktail.observe(viewLifecycleOwner) { random ->
             random?.let {
                 Toast.makeText(
@@ -73,6 +80,3 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
-
-
-
