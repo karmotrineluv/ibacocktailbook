@@ -1,10 +1,11 @@
 package com.example.ibacocktailbook.ui.home
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -39,9 +40,7 @@ class HomeFragment : Fragment() {
 
         // Инициализация адаптера с обработкой кликов
         cocktailAdapter = CocktailAdapter(
-            onFavoriteClick = { cocktail ->
-                viewModel.toggleFavorite(cocktail)
-            },
+            onFavoriteClick = { cocktail -> viewModel.toggleFavorite(cocktail) },
             onItemClick = { cocktail ->
                 val action = HomeFragmentDirections
                     .actionHomeFragmentToCocktailDetailFragment(cocktail.cocktail.id)
@@ -59,18 +58,48 @@ class HomeFragment : Fragment() {
             cocktailAdapter.submitList(cocktails)
         }
 
-        // Случайный коктейль
-        viewModel.randomCocktail.observe(viewLifecycleOwner) { random ->
-            random?.let {
-                Toast.makeText(
-                    requireContext(),
-                    "Random Cocktail: ${it.cocktail.name}",
-                    Toast.LENGTH_SHORT
-                ).show()
+        // Наблюдение за результатами поиска
+        viewModel.searchResults.observe(viewLifecycleOwner) { results ->
+            if (results.isNotEmpty()) {
+                cocktailAdapter.submitList(results)
+            } else {
+                viewModel.allCocktails.value?.let {
+                    cocktailAdapter.submitList(it)
+                }
             }
         }
 
-        binding.randomCocktailCard.setOnClickListener {
+        // Слушатель для поиска с TextWatcher
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
+                // Можно оставить пустым или использовать для других целей
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+                // Можно оставить пустым или использовать для других целей
+            }
+
+            override fun afterTextChanged(editable: Editable?) {
+                val query = editable.toString().trim()
+                if (query.isNotEmpty()) {
+                    viewModel.searchCocktails(query)
+                } else {
+                    viewModel.clearSearchResults()
+                }
+            }
+        })
+
+        // Случайный коктейль
+        viewModel.randomCocktail.observe(viewLifecycleOwner) { random ->
+            random?.let {
+                val action = HomeFragmentDirections
+                    .actionHomeFragmentToCocktailDetailFragment(it.cocktail.id)
+                findNavController().navigate(action)
+                viewModel.clearRandomCocktail()  // Сброс значения
+            }
+        }
+
+        binding.randomCocktailButton.setOnClickListener {
             viewModel.loadRandomCocktail()
         }
     }

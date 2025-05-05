@@ -16,59 +16,67 @@
         android:textColor="#00FFFF"
         android:textSize="24sp"
         android:fontFamily="@font/cyberpunkwaifus"
-        android:textAlignment="center"
         android:layout_marginTop="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- Поисковая строка -->
-    <EditText
-        android:id="@+id/searchEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Search cocktails..."
-        android:background="@drawable/search_field"
-        android:drawableStart="@drawable/ic_search"
-        android:drawableTint="@android:color/white"
-        android:textColor="@android:color/white"
-        android:textColorHint="#888888"
-        android:padding="12dp"
-        android:fontFamily="@font/cyberpunkwaifus"
-        android:textSize="18sp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/greetingText"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Карточка рандомного коктейля -->
-    <LinearLayout
-        android:id="@+id/randomCocktailCard"
+    <!-- Контейнер поля поиска -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchContainer"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/card_bg"
-        android:padding="12dp"
-        android:gravity="center_vertical"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/searchEditText"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/search_field"
+        app:layout_constraintTop_toBottomOf="@id/greetingText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Иконка поиска -->
         <ImageView
+            android:id="@+id/searchIcon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_random"
-            android:layout_marginEnd="8dp"/>
+            android:src="@drawable/ic_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="12dp"
+            app:tint="#FFFFFF" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Random Cocktail"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:fontFamily="@font/cyberpunkwaifus"/>
-    </LinearLayout>
+        <!-- Поле ввода -->
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:hint="Search cocktails..."
+            android:textColor="#FFFFFF"
+            android:textColorHint="#888888"
+            android:fontFamily="@font/cyberpunkwaifus"
+            android:textSize="18sp"
+            android:inputType="text"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintStart_toEndOf="@id/searchIcon"
+            app:layout_constraintEnd_toStartOf="@id/randomCocktailButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Кнопка случайного коктейля -->
+        <ImageButton
+            android:id="@+id/randomCocktailButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_random"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/random_cocktail"
+            app:tint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Заголовок списка -->
     <TextView
@@ -80,10 +88,10 @@
         android:textSize="20sp"
         android:fontFamily="@font/cyberpunkwaifus"
         android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/randomCocktailCard"
+        app:layout_constraintTop_toBottomOf="@id/searchContainer"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- RecyclerView -->
+    <!-- Список коктейлей -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
