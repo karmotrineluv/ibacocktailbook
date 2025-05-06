@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Скрываем ActionBar
         supportActionBar?.hide()
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -27,7 +26,6 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.cocktailDetailFragment,
                 R.id.loginFragment,
-                R.id.homeFragment,
                 R.id.registerFragment,
                 R.id.resetPasswordFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE // Скрыть навигацию

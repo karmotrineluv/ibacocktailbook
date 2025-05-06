@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
@@ -83,6 +84,21 @@
             app:argType="integer" />
     </fragment>
 
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.ibacocktailbook.ui.favorites.FavoritesFragment"
+        android:label="Saved"
+        tools:layout="@layout/fragment_favorites" />
+
+    <action
+        android:id="@+id/action_favoritesFragment_to_cocktailDetailFragment"
+        app:destination="@id/cocktailDetailFragment" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.ibacocktailbook.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
 
 
 </navigation>

@@ -12,6 +12,14 @@ interface CocktailDao {
     @Query("SELECT * FROM cocktails")
     fun getAllCocktails(): LiveData<List<CocktailWithIngredients>>
 
+    // Получаем избранные коктейли (с использованием LiveData)
+    @Transaction
+    @Query("SELECT * FROM cocktails WHERE isFavorite = 1")
+    fun getFavoritesCocktailsLiveData(): LiveData<List<CocktailWithIngredients>> // Исправлено на LiveData
+
+    @Query("UPDATE cocktails SET isFavorite = :isFavorite WHERE id = :cocktailId")
+    suspend fun updateFavoriteStatus(cocktailId: Int, isFavorite: Boolean)
+
 
     // Синхронный метод для получения всех коктейлей
     @Transaction
@@ -67,5 +75,4 @@ interface CocktailDao {
 
     @Update
     suspend fun updateCocktail(cocktail: CocktailEntity)
-
 }

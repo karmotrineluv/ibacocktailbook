@@ -1,15 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/home"
-        android:title="Home" />
+        android:title="Home"
+        android:fontFamily="@font/cyberpunkwaifus"/>
     <item
-        android:id="@+id/menu_search"
-        android:icon="@drawable/search"
-        android:title="Search" />
+        android:id="@+id/favoritesFragment"
+        android:icon="@drawable/saved"
+        android:title="Saved"
+        android:fontFamily="@font/cyberpunkwaifus"/>
     <item
-        android:id="@+id/menu_profile"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/profile"
-        android:title="Profile" />
+        android:title="Profile"
+        android:fontFamily="@font/cyberpunkwaifus"/>
 </menu>
