@@ -5,6 +5,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.ibacocktailbook.R
 import com.example.ibacocktailbook.databinding.FragmentVerifyEmailBinding
@@ -26,32 +27,38 @@ class VerifyEmailFragment : Fragment() {
         binding = FragmentVerifyEmailBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
 
+        val animOptions = NavOptions.Builder()
+            .setEnterAnim(R.anim.slide_in_right)
+            .setExitAnim(R.anim.slide_out_left)
+            .setPopEnterAnim(R.anim.slide_in_left)
+            .setPopExitAnim(R.anim.slide_out_right)
+            .build()
+
         val email = auth.currentUser?.email ?: ""
-        val fullText = "We sent a verification link to $email. Please check your inbox and click the link to activate your account."
+        val fullText =
+            "We sent a verification link to $email. Please check your inbox and click the link to activate your account."
 
-        // Создаём SpannableString
         val spannableString = SpannableString(fullText)
-
-        // Находим позицию начала и конца email
         val startIndex = fullText.indexOf(email)
         val endIndex = startIndex + email.length
 
-        // Применяем цвет для email
         spannableString.setSpan(
-            ForegroundColorSpan(Color.parseColor("#3c82d0")), // Цвет текста для email
-            startIndex, // Начальный индекс
-            endIndex,   // Конечный индекс
-            0           // Флаги
+            ForegroundColorSpan(Color.parseColor("#3c82d0")),
+            startIndex,
+            endIndex,
+            0
         )
-
-        // Устанавливаем SpannableString в TextView
         binding.verificationMessage.text = spannableString
 
         binding.continueButton.setOnClickListener {
             auth.currentUser?.reload()?.addOnCompleteListener {
                 if (auth.currentUser?.isEmailVerified == true) {
                     Toast.makeText(context, "Email verified!", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_emailVerificationFragment_to_homeFragment)
+                    findNavController().navigate(
+                        R.id.action_emailVerificationFragment_to_homeFragment,
+                        null,
+                        animOptions
+                    )
                 } else {
                     Toast.makeText(context, "Email was not verified yet.", Toast.LENGTH_SHORT).show()
                 }
@@ -63,13 +70,21 @@ class VerifyEmailFragment : Fragment() {
                 if (task.isSuccessful) {
                     Toast.makeText(context, "New message was sent", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "Error: ${task.exception?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
 
         binding.backToLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_emailVerificationFragment_to_loginFragment)
+            findNavController().navigate(
+                R.id.action_emailVerificationFragment_to_loginFragment,
+                null,
+                animOptions
+            )
         }
 
         return binding.root

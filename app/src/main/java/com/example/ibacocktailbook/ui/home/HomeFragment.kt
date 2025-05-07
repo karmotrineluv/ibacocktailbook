@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ibacocktailbook.App
+import com.example.ibacocktailbook.R
 import com.example.ibacocktailbook.databinding.FragmentHomeBinding
 import com.example.ibacocktailbook.db.CocktailRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -52,7 +54,17 @@ class HomeFragment : Fragment() {
             onItemClick = { cocktail ->
                 val action = HomeFragmentDirections
                     .actionHomeFragmentToCocktailDetailFragment(cocktail.cocktail.id)
-                findNavController().navigate(action)
+
+                val navOptions = androidx.navigation.navOptions {
+                    anim {
+                        enter = R.anim.slide_in_right
+                        exit = R.anim.slide_out_left
+                        popEnter = R.anim.slide_in_left
+                        popExit = R.anim.slide_out_right
+                    }
+                }
+
+                findNavController().navigate(action, navOptions) // <-- Важно: передаём navOptions сюда
             }
         )
 
@@ -103,10 +115,21 @@ class HomeFragment : Fragment() {
             random?.let {
                 val action = HomeFragmentDirections
                     .actionHomeFragmentToCocktailDetailFragment(it.cocktail.id)
-                findNavController().navigate(action)
-                viewModel.clearRandomCocktail()  // Сброс значения
+
+                val navOptions = navOptions {
+                    anim {
+                        enter = R.anim.slide_in_right
+                        exit = R.anim.slide_out_left
+                        popEnter = R.anim.slide_in_left
+                        popExit = R.anim.slide_out_right
+                    }
+                }
+
+                findNavController().navigate(action, navOptions)
+                viewModel.clearRandomCocktail()
             }
         }
+
 
         binding.randomCocktailButton.setOnClickListener {
             viewModel.loadRandomCocktail()

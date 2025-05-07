@@ -11,7 +11,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.ibacocktailbook.R
 import com.example.ibacocktailbook.databinding.FragmentLoginBinding
-import com.google.android.gms.auth.api.signin.*
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -31,10 +33,8 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
 
-        // Принудительный выход из Firebase перед входом
         FirebaseAuth.getInstance().signOut()
 
-        // Настройка Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -42,7 +42,13 @@ class LoginFragment : Fragment() {
 
         googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
-        // Кнопка Google Sign-In
+        val animOptions = NavOptions.Builder()
+            .setEnterAnim(R.anim.slide_in_right)
+            .setExitAnim(R.anim.slide_out_left)
+            .setPopEnterAnim(R.anim.slide_in_left)
+            .setPopExitAnim(R.anim.slide_out_right)
+            .build()
+
         binding.googleLoginButton.setOnClickListener {
             googleSignInClient.signOut().addOnCompleteListener {
                 googleSignInClient.revokeAccess().addOnCompleteListener {
@@ -52,45 +58,46 @@ class LoginFragment : Fragment() {
             }
         }
 
-        // Кнопка логина по email
         binding.loginButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString().trim()
-            val password = binding.passwordEditText.text.toString().trim()
+            val email = binding.emailEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
 
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(context, "Enter email and password", Toast.LENGTH_SHORT).show()
-            } else {
-                binding.loginButton.isEnabled = false
+            if (email.isBlank() || password.isBlank()) {
+                Toast.makeText(context, "Fill all fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                    binding.loginButton.isEnabled = true
+            binding.loadingProgressBar.visibility = View.VISIBLE
 
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    binding.loadingProgressBar.visibility = View.GONE
                     if (task.isSuccessful) {
-                        navigateToHome()
+                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     } else {
-                        Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            "Login failed: ${task.exception?.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
-            }
         }
 
-        // Кнопка регистрации
+
+
         binding.registerLabel.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment, null, animOptions)
         }
 
-        // Кнопка "Забыли пароль?"
         binding.forgotPasswordText.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_resetPasswordFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_resetPasswordFragment, null, animOptions)
         }
 
-        // Кнопка анонимного входа
         binding.anonymousLoginButton.setOnClickListener {
             binding.anonymousLoginButton.isEnabled = false
-
             auth.signInAnonymously().addOnCompleteListener { task ->
                 binding.anonymousLoginButton.isEnabled = true
-
                 if (task.isSuccessful) {
                     navigateToHome()
                 } else {
@@ -107,6 +114,12 @@ class LoginFragment : Fragment() {
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
+            val animOptions = NavOptions.Builder()
+                .setEnterAnim(R.anim.slide_in_right)
+                .setExitAnim(R.anim.slide_out_left)
+                .setPopEnterAnim(R.anim.slide_in_left)
+                .setPopExitAnim(R.anim.slide_out_right)
+                .build()
             navigateToHome()
         }
     }
@@ -116,10 +129,8 @@ class LoginFragment : Fragment() {
 
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-
             try {
                 val account = task.getResult(ApiException::class.java)
-
                 if (account != null) {
                     firebaseAuthWithGoogle(account.idToken!!)
                 }
@@ -132,6 +143,12 @@ class LoginFragment : Fragment() {
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener(requireActivity()) { task ->
+            val animOptions = NavOptions.Builder()
+                .setEnterAnim(R.anim.slide_in_right)
+                .setExitAnim(R.anim.slide_out_left)
+                .setPopEnterAnim(R.anim.slide_in_left)
+                .setPopExitAnim(R.anim.slide_out_right)
+                .build()
             if (task.isSuccessful) {
                 navigateToHome()
             } else {
@@ -141,12 +158,18 @@ class LoginFragment : Fragment() {
     }
 
     private fun navigateToHome() {
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.loginFragment, true) // Удаляет loginFragment из стека
+            .setEnterAnim(R.anim.slide_in_right)
+            .setExitAnim(R.anim.slide_out_left)
+            .setPopEnterAnim(R.anim.slide_in_left)
+            .setPopExitAnim(R.anim.slide_out_right)
+            .build()
+
         findNavController().navigate(
             R.id.action_loginFragment_to_homeFragment,
             null,
-            NavOptions.Builder()
-                .setPopUpTo(R.id.loginFragment, true)
-                .build()
+            navOptions
         )
     }
 }

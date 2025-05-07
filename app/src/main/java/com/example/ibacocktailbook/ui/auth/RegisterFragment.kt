@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.ibacocktailbook.R
 import com.example.ibacocktailbook.databinding.FragmentRegisterBinding
@@ -22,6 +23,13 @@ class RegisterFragment : Fragment() {
     ): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
+
+        val animOptions = NavOptions.Builder()
+            .setEnterAnim(R.anim.slide_in_right)
+            .setExitAnim(R.anim.slide_out_left)
+            .setPopEnterAnim(R.anim.slide_in_left)
+            .setPopExitAnim(R.anim.slide_out_right)
+            .build()
 
         binding.registerButton.setOnClickListener {
             val email = binding.emailEditText.text.toString().trim()
@@ -43,7 +51,11 @@ class RegisterFragment : Fragment() {
                                             Toast.LENGTH_LONG
                                         ).show()
 
-                                        findNavController().navigate(R.id.action_registerFragment_to_emailVerificationFragment)
+                                        findNavController().navigate(
+                                            R.id.action_registerFragment_to_emailVerificationFragment,
+                                            null,
+                                            animOptions
+                                        )
                                     } else {
                                         Toast.makeText(
                                             context,
@@ -64,7 +76,11 @@ class RegisterFragment : Fragment() {
         }
 
         binding.backToLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            findNavController().navigate(
+                R.id.action_registerFragment_to_loginFragment,
+                null,
+                animOptions
+            )
         }
 
         return binding.root
