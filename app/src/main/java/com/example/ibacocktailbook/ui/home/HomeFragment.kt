@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ibacocktailbook.App
 import com.example.ibacocktailbook.databinding.FragmentHomeBinding
 import com.example.ibacocktailbook.db.CocktailRepository
+import com.google.firebase.auth.FirebaseAuth
+import java.util.*
 
 class HomeFragment : Fragment() {
 
@@ -38,6 +40,11 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Приветствие пользователя
+        val userName = FirebaseAuth.getInstance().currentUser?.displayName
+        val greeting = getGreetingMessage()
+        binding.greetingText.text = "$greeting, ${userName ?: "Гость"}!"
 
         // Инициализация адаптера с обработкой кликов
         cocktailAdapter = CocktailAdapter(
@@ -109,5 +116,15 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getGreetingMessage(): String {
+        val hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        return when (hourOfDay) {
+            in 5..11 -> "Good morning"
+            in 12..17 -> "Good afternoon"
+            in 18..21 -> "Good evening"
+            else -> "Good night"
+        }
     }
 }

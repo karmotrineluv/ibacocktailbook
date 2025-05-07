@@ -3,6 +3,7 @@ package com.example.ibacocktailbook
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.ibacocktailbook.databinding.ActivityMainBinding
@@ -13,30 +14,30 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        // Инициализируем биндинг через DataBindingUtil
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         supportActionBar?.hide()
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        // Настраиваем NavController и BottomNavigationView
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        // Скрываем/показываем BottomNavigationView в зависимости от текущего фрагмента
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.cocktailDetailFragment,
                 R.id.loginFragment,
                 R.id.registerFragment,
                 R.id.resetPasswordFragment -> {
-                    binding.bottomNavigationView.visibility = View.GONE // Скрыть навигацию
+                    binding.bottomNavigationView.visibility = View.GONE
                 }
                 else -> {
-                    binding.bottomNavigationView.visibility = View.VISIBLE // Показать навигацию
+                    binding.bottomNavigationView.visibility = View.VISIBLE
                 }
             }
         }
 
-        // Привязка навигации с BottomNavigationView
         binding.bottomNavigationView.setupWithNavController(navController)
     }
 }

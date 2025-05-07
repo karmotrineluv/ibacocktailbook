@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.ibacocktailbook.R
 import com.example.ibacocktailbook.databinding.FragmentLoginBinding
@@ -30,6 +31,9 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance()
 
+        // Принудительный выход из Firebase перед входом
+        FirebaseAuth.getInstance().signOut()
+
         // Настройка Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -40,10 +44,13 @@ class LoginFragment : Fragment() {
 
         // Кнопка Google Sign-In
         binding.googleLoginButton.setOnClickListener {
-            val signInIntent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
+            googleSignInClient.signOut().addOnCompleteListener {
+                googleSignInClient.revokeAccess().addOnCompleteListener {
+                    val signInIntent = googleSignInClient.signInIntent
+                    startActivityForResult(signInIntent, RC_SIGN_IN)
+                }
+            }
         }
-
 
         // Кнопка логина по email
         binding.loginButton.setOnClickListener {
@@ -53,9 +60,13 @@ class LoginFragment : Fragment() {
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(context, "Enter email and password", Toast.LENGTH_SHORT).show()
             } else {
+                binding.loginButton.isEnabled = false
+
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                    binding.loginButton.isEnabled = true
+
                     if (task.isSuccessful) {
-                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                        navigateToHome()
                     } else {
                         Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
@@ -75,9 +86,13 @@ class LoginFragment : Fragment() {
 
         // Кнопка анонимного входа
         binding.anonymousLoginButton.setOnClickListener {
+            binding.anonymousLoginButton.isEnabled = false
+
             auth.signInAnonymously().addOnCompleteListener { task ->
+                binding.anonymousLoginButton.isEnabled = true
+
                 if (task.isSuccessful) {
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    navigateToHome()
                 } else {
                     Toast.makeText(context, "Anonymous login error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
@@ -86,12 +101,13 @@ class LoginFragment : Fragment() {
 
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
-            findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            navigateToHome()
         }
     }
 
@@ -100,11 +116,15 @@ class LoginFragment : Fragment() {
 
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+
             try {
-                val account = task.getResult(ApiException::class.java)!!
-                firebaseAuthWithGoogle(account.idToken!!)
+                val account = task.getResult(ApiException::class.java)
+
+                if (account != null) {
+                    firebaseAuthWithGoogle(account.idToken!!)
+                }
             } catch (e: ApiException) {
-                Toast.makeText(context, "Login error: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Login failed: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -113,10 +133,20 @@ class LoginFragment : Fragment() {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener(requireActivity()) { task ->
             if (task.isSuccessful) {
-                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                navigateToHome()
             } else {
-                Toast.makeText(context, "Firebase error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Firebase authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun navigateToHome() {
+        findNavController().navigate(
+            R.id.action_loginFragment_to_homeFragment,
+            null,
+            NavOptions.Builder()
+                .setPopUpTo(R.id.loginFragment, true)
+                .build()
+        )
     }
 }
