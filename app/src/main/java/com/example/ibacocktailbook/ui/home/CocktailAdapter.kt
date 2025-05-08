@@ -32,7 +32,6 @@ class CocktailAdapter(
                 val context = itemView.context
                 val imageName = cocktailWithIngredients.cocktail.imageUrl
 
-                // Загрузка изображения
                 val imageResId = context.resources.getIdentifier(imageName, "drawable", context.packageName)
 
                 Glide.with(context)
@@ -43,14 +42,12 @@ class CocktailAdapter(
                 cocktailNameTextView.text = cocktailWithIngredients.cocktail.name
                 cocktailTypeTextView.text = cocktailWithIngredients.cocktail.type
 
-                // Устанавливаем визуальное состояние кнопки
                 saveButton.isSelected = cocktailWithIngredients.cocktail.isFavorite
 
                 saveButton.setOnClickListener {
                     onFavoriteClick(cocktailWithIngredients)
                 }
 
-                // Обработка нажатия на саму карточку
                 root.setOnClickListener {
                     onItemClick(cocktailWithIngredients)
                 }

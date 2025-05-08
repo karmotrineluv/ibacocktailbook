@@ -21,13 +21,10 @@ interface CocktailDao {
     suspend fun updateFavoriteStatus(cocktailId: Int, isFavorite: Boolean)
 
 
-    // Синхронный метод для получения всех коктейлей
     @Transaction
     @Query("SELECT * FROM cocktails")
     suspend fun getAllCocktailsList(): List<CocktailEntity>
-    // Теперь возвращает List<CocktailEntity>
 
-    // Вставка коктейля и ингредиентов
     @Transaction
     suspend fun insertCocktail(cocktail: CocktailEntity, ingredients: List<IngredientEntity>) {
         val cocktailId = insertCocktail(cocktail) // Вставляем коктейль и получаем его ID

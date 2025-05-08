@@ -25,7 +25,7 @@ abstract class CocktailDatabase : RoomDatabase() {
                     CocktailDatabase::class.java,
                     "cocktail_database"
                 )
-                    // .addMigrations(MIGRATION_1_2)  // если нужно, добавьте миграции
+                    // .addMigrations(MIGRATION_1_2)
                     .build()
                 INSTANCE = instance
                 instance

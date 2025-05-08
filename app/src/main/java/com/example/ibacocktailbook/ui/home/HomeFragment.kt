@@ -43,19 +43,17 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Приветствие пользователя
         val userName = FirebaseAuth.getInstance().currentUser?.displayName
         val greeting = getGreetingMessage()
         binding.greetingText.text = "$greeting, ${userName ?: "Гость"}!"
 
-        // Инициализация адаптера с обработкой кликов
         cocktailAdapter = CocktailAdapter(
             onFavoriteClick = { cocktail -> viewModel.toggleFavorite(cocktail) },
             onItemClick = { cocktail ->
                 val action = HomeFragmentDirections
                     .actionHomeFragmentToCocktailDetailFragment(cocktail.cocktail.id)
 
-                val navOptions = androidx.navigation.navOptions {
+                val navOptions = navOptions {
                     anim {
                         enter = R.anim.slide_in_right
                         exit = R.anim.slide_out_left
@@ -64,7 +62,7 @@ class HomeFragment : Fragment() {
                     }
                 }
 
-                findNavController().navigate(action, navOptions) // <-- Важно: передаём navOptions сюда
+                findNavController().navigate(action, navOptions)
             }
         )
 
@@ -73,13 +71,11 @@ class HomeFragment : Fragment() {
             adapter = cocktailAdapter
         }
 
-        // Наблюдение за всеми коктейлями
         viewModel.allCocktails.observe(viewLifecycleOwner) { cocktails ->
             Log.d("HomeFragment", "Received ${cocktails.size} cocktails from LiveData")
             cocktailAdapter.submitList(cocktails)
         }
 
-        // Наблюдение за результатами поиска
         viewModel.searchResults.observe(viewLifecycleOwner) { results ->
             if (results.isNotEmpty()) {
                 cocktailAdapter.submitList(results)
@@ -90,14 +86,11 @@ class HomeFragment : Fragment() {
             }
         }
 
-        // Слушатель для поиска с TextWatcher
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {
-                // Можно оставить пустым или использовать для других целей
             }
 
             override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
-                // Можно оставить пустым или использовать для других целей
             }
 
             override fun afterTextChanged(editable: Editable?) {
@@ -110,7 +103,6 @@ class HomeFragment : Fragment() {
             }
         })
 
-        // Случайный коктейль
         viewModel.randomCocktail.observe(viewLifecycleOwner) { random ->
             random?.let {
                 val action = HomeFragmentDirections

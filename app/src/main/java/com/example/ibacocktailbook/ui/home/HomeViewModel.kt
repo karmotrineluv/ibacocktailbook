@@ -12,18 +12,14 @@ class HomeViewModel(
     private val repository: CocktailRepository
 ) : ViewModel() {
 
-    // Все коктейли
     val allCocktails: LiveData<List<CocktailWithIngredients>> = repository.allCocktails
 
-    // Случайный коктейль
     private val _randomCocktail = MutableLiveData<CocktailWithIngredients?>()
     val randomCocktail: LiveData<CocktailWithIngredients?> = _randomCocktail
 
-    // Коктейль по ID
     private val _cocktailById = MutableLiveData<CocktailWithIngredients?>()
     val cocktailById: LiveData<CocktailWithIngredients?> = _cocktailById
 
-    // Результаты поиска
     private val _searchResults = MutableLiveData<List<CocktailWithIngredients>>()
     val searchResults: LiveData<List<CocktailWithIngredients>> = _searchResults
 

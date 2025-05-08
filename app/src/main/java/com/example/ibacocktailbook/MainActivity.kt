@@ -14,12 +14,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Инициализируем биндинг через DataBindingUtil
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         supportActionBar?.hide()
 
-        // Настраиваем NavController и BottomNavigationView
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
